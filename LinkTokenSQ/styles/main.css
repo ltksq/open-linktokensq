@@ -1,0 +1,340 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    font-family: kai;
+}
+@media (min-width:768px) {
+	.container {
+        width: 640px;
+        margin: 0 auto;
+        border: solid 1px #ccc;
+    }
+}
+input{    font-family: kai;}
+
+.transition05 {
+    transition: all 0.5s;
+}
+
+.item-justify {
+    display: flex;
+    flex-direction: 3;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.item-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.item-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.item-center-v {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.item-left-v {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: center;
+}
+
+.bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/bg2.jpg');
+    background-size: cover;
+    filter: blur(0);
+    transition: all 0.5s;
+}
+
+
+.nav {
+    width: 96%;
+    position: absolute;
+    left: 2%;
+    bottom: 20px;
+    z-index: 9;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    transition: all 0.5s;
+    transform: translate3d(0, 0, 0);
+}
+
+.slide {
+    position: absolute;
+    right: 2%;
+    top: 20px;
+    z-index: 9;
+
+    transition: all 0.5s;
+    transform: translate3d(0, 0, 0);
+}
+
+.hide .nav {
+    transform: translate3d(0, 120%, 0);
+}
+
+.hide .slide {
+    transform: translate3d(120%, 0, 0);
+}
+
+.hide .bg {
+    filter: blur(10px);
+}
+
+
+.slide img {
+    width: 120px;
+    margin-top: 80px;
+}
+
+.profile {
+    position: absolute;
+    left: 2%;
+    top: 20px;
+}
+
+.qian {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    color: #fff;
+    line-height: 64px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.popup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 999;
+     
+}
+
+.middle {
+   
+    width: 100%;
+    
+  height:83%;
+    
+    color:black;
+   overflow:auto;
+ 
+}
+ .middlemin {
+    width:100%;
+    color:black;
+   overflow:auto;
+ 
+}
+
+.close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 120px;
+    height: 80px;
+    background-color: transparent;
+}
+
+.hero-item {
+    border-top: solid 1px #cccccc;
+    position: relative;
+	padding: 20px 10px;
+}
+.hero-itemmin{
+    border: solid 0px #cccccc;
+  position: relative;
+  text-align: center;
+}
+.hero-img {
+    width: 110px;
+    height: 143px;
+    background-size: cover;
+    position: relative;
+}
+.hero-imgmin {
+    width: 110px;
+    height: 143px;
+    margin: 10px 5px 0;
+    background-size: cover;
+    position: relative;
+    display: inline-block;
+ 
+}
+.hero-imgmin-tools {
+    width: 54px;
+    height: 54px;
+    margin: 2px 2px;
+    background-size: cover;
+    border: solid 0px #fff;
+    position: relative;
+    display: inline-block;
+}
+.name {
+	color: #e39548;
+	font-size: 16px;
+}
+.namemin {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color:white;
+    background-color: rgba(0,0,0,0.8);
+    font-size: 11px;
+    padding: 0px 0px;
+    text-align: center;
+	color: yellow;
+	
+}
+.namemintools {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	background-color: rgba(0,0,0,0.8);
+	font-size: 10px;
+	padding: 0px 0px;
+	text-align: center;
+}
+.shuxing {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    color: #88eb73;
+    background-color: #0a1f16;
+    font-size: 12px;
+    padding: 2px 5px;
+}
+.shuxing_autoin {
+	position: absolute;
+	right: 0px;
+	top: 0;
+	top: 80px;
+	padding: 0px;
+	margin: 0px;
+}
+.shuxing_autoin .weui-btn_mini {
+	padding: 0px 5px;
+}
+.shuxingmin {
+	position: absolute;
+	right: 0px;
+	top: 0;
+	color: #88eb73;
+	background-color: rgba(0,0,0,0.8);
+	font-size: 10px;
+	padding: 2px 5px;
+}
+.hero-info {
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+#snow {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ping {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #fff;
+    color: #ac3938;
+    background-color: #181221;
+    font-size: 20px;
+    padding: 5px 30px;
+}
+.c_mask {border:#afcef1 solid 1px; width:650px;background:#fff;}
+
+.c_mask h3 {background-color:#EDF9FF; font-size:14px; padding:5px 0 2px 15px; border-bottom:#afcef1 solid 1px;}
+
+.c_mask h3 .delete {color:#5C66CC; width:22px; height:22px; cursor:pointer; text-align:center;float:right;margin-right:5px}
+
+.c_mask h3 .delete:hover{background:#fff; text-decoration:none}
+
+.c_mask h4{margin-bottom:5px;font-size:12px;}
+
+.c_mask .c_mask_bd { padding:15px; }
+
+.btn{display:inline-block;text-align:center;background:url(http://picint.sh.ctriptravel.com/vacation_v2/scene_htl/un_btn.png) 0 -108px no-repeat;width:100px;height:27px;line-height:27px;border:0 none;vertical-align:middle;cursor:pointer;color:#333;font-weight:bold}
+
+.btn:hover{text-decoration:none;}
+
+.btn_azure{background-position:0 0;}
+
+.btn_azure:hover{background-position:0 -27px;}
+
+.btn_azure_l{background-position:-100px 0;width:140px}
+
+.btn_azure_l:hover{background-position:-100px -27px}
+
+.btn_azure_s{background-position:-240px 0;width:54px;}
+
+.btn_azure_s:hover{background-position:-240px -27px}
+
+.btn_azure_ss{background-position:0 -189px;width:54px;height:21px;line-height:21px;}
+
+.btn_azure_ss:hover{background-position:0 -210px}
+
+
+.weui-btn_primary {
+	color: #fff !important;
+}
+
+.end {
+	padding: 50px 0;
+	text-align: center;
+}
+.weui-tabbar__item{
+    padding: 10px 0;
+}
+.middle {
+    height: 70% !important
+}
+.shen {
+ -webkit-filter: hue-rotate(-90deg);
+ filter: hue-rotate(-90deg);
+}
+
+.mo {
+ -webkit-filter: hue-rotate(-180deg);
+ filter: hue-rotate(-180deg);
+}
