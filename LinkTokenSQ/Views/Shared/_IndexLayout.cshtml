@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name=Keywords content=链克文化社区,区块链技术交流,区块链,链克生态应用>
+    <meta name=description content=基于迅雷玩客云区块链技术的社区>
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/styles/weui.css">
+    <link rel="stylesheet" href="/styles/weuipage.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="/styles/bootstrap/sweetalert.css" rel="stylesheet">
+    <script src="/styles/hplus/js/jquery.min.js?v=2.1.4"></script>
+    <script src="@Url.Content("~/Scripts/jquery.fn.extend.js")" type="text/javascript"></script>
+    <script src="/styles/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        var AP_ROOT = '@Url.Content("~/")';
+        function myalert(msg) {
+            //alert(msg);
+            swal({ title: "", text: msg, confirmButtonText: "确定" });
+
+        }
+
+
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            fmt = fmt || "yyyy-MM-dd";
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+
+ 
+
+    </script>
+
+    <style>
+        .weui-tabbar__item {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<BODY>
+    <div class="container" id="container">
+        @RenderBody()
+
+
+        <div class="weui-tabbar">
+            <a href="javascript:window.location.href='/vote/index';" @Html.Raw(LinkTokenSQ.Controllers.NoLoginController.GetToolCSS(Request.RawUrl, "/vote/index"))>
+                <div class="weui-tabbar__icon">
+                    <img src="/images/activity.ico" alt="">
+                </div>
+                <p class="weui-tabbar__label">投票</p>
+            </a>
+
+            <a href="javascript:window.location.href='/vote/myvote';" @Html.Raw(LinkTokenSQ.Controllers.NoLoginController.GetToolCSS(Request.RawUrl, "/vote/myvote"))>
+                <div class="weui-tabbar__icon">
+                    <img src="/images/Box-Closed-2.ico" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的主题</p>
+            </a>
+            <a href="javascript:window.location.href='/userinfo/userhelp';" @Html.Raw(LinkTokenSQ.Controllers.NoLoginController.GetToolCSS(Request.RawUrl, "/userinfo/userhelp"))>
+                <div class="weui-tabbar__icon">
+                    <img src="/images/Search.ico" alt="">
+                </div>
+                <p class="weui-tabbar__label">社区说明</p>
+            </a>
+            <a href="javascript:window.location.href='/userinfo/userinfo';" @Html.Raw(LinkTokenSQ.Controllers.NoLoginController.GetToolCSS(Request.RawUrl, "/userinfo/userinfo"))>
+                <div class="weui-tabbar__icon">
+                    <img src="/images/Users.ico" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+
+        </div>
+    </div>
+
+</BODY>
+</html>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>

@@ -1,0 +1,85 @@
+﻿
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{
+    ViewBag.Title = "链克文化社区-用户信息";
+  
+}
+
+<div class="page input js_show">
+    <div class="page__hd" style="padding: 20px 15px;">
+        <h1 class="page__title" style="font-size:17px;">昵称：@Model.Uinfo.nikename<a class="link2" href="javascript:" id="forgetpwd" onclick='forgetpwd();' style="font-size: 10px; margin-left: 20px;">用户信息修改</a></h1>
+        <div class="page__desc">绑定钱包：<span style="font-size: 10px;">@Model.Uinfo.wkcaddress</span></div>
+    </div>
+    <div class="page__bd">
+        <div class="weui-panel">
+            <div class="weui-panel__hd">账户信息</div>
+            <div class="weui-panel__bd">
+                <div class="weui-media-box weui-media-box_small-appmsg">
+                    <div class="weui-cells">
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">余额：</div>
+                            <div class="weui-cell__bd weui-cell_primary">
+                                @(Math.Round(Model.Acc.accountmony, 8))
+                            </div>
+                            <div class="weui-cell__ft">
+                                 
+                                <a class="weui-btn weui-btn_primary weui-btn_mini"   href="javascript:" id="inmoney">充值</a> 
+                                 
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+   
+        <div class="weui-panel">
+            <div class="weui-panel__hd">
+                <a class="weui-btn weui-btn_warn" href="/userinfo/loginout">登出</a>
+                <br />
+            </div>
+            <div class="weui-panel__bd" style="padding: 40px 0;">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="weui-skin_android" id="androidActionsheet" style="display: none">
+    <div class="weui-mask"></div>
+    <div class="weui-actionsheet">
+        <div class="weui-actionsheet__menu">
+            <div class="weui-actionsheet__cell">请用绑定的钱包向以下地址充值</div>
+            <div class="weui-actionsheet__cell"><span id="copytxt" style="font-size:12px;word-wrap:break-word;">@(Common.ConstPar.ConstPar.CZ_WKCAddress)</span></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	// android
+	$(function () {
+		var $androidActionSheet = $('#androidActionsheet');
+		var $androidMask = $androidActionSheet.find('.weui-mask');
+
+		$("#inmoney").on('click', function () {
+			$androidActionSheet.fadeIn(200);
+			$androidMask.on('click', function () {
+				$androidActionSheet.fadeOut(200);
+			});
+		});
+	});
+</script>
+<script>
+ 
+function forgetpwd(){
+        var context = { "userid": '@Model.Uinfo.userid' };
+        $.ajaxPost(AP_ROOT + "modifyuinfo/SetTempDataUserid", context, function(response) {
+            if (response.IsSuccess) {
+                window.location.href = response.Message;
+            } else {
+                myalert("手机号码未注册.");
+            }
+        });
+}
+
+  
+
+</script>

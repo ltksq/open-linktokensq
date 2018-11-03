@@ -1,0 +1,69 @@
+﻿ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-用户登录";
+}
+@Scripts.Render(Url.Content("~/Scripts/Login/jsx.js"))
+ 
+
+    <div class="container" id="container">
+        <div class="page input js_show">
+            <div class="page__hd" style="margin-top:-30px;">
+                <h1 class="page__title" style="font-size: 30px;">登录</h1>
+                <p class="page__desc">没有账号，去<a class="link" href="/register@(string.IsNullOrEmpty(Request["puid"])?"":"?puid="+Request["puid"])">注册</a></p>
+            </div>
+            <div class="page__bd" style="margin-top:-30px;">
+               
+                <div class="weui-cells">
+                    <div class="weui-cell weui-cell_select weui-cell_select-before">
+                        <div class="weui-cell__hd">
+                            <select class="weui-select" id="selarea">
+                                <option value="86">+86</option>
+                                @*<option value="852">+852</option>
+            <option value="853">+853</option>
+            <option value="886">+886</option>*@
+                            </select>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="txttel" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" value="">
+                        </div>
+                    </div>
+ 
+                    </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="txtpwd" class="weui-input" type="password" placeholder="请输入登录密码" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell weui-cell_vcode">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">验证码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="txtscode" class="weui-input" type="text" placeholder="请输入验证码">
+                        </div>
+                        <div class="weui-cell__ft">
+                            <img id="scode" src="/Account/SecurityCacheCode" alt="点击重新获取" />
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">登 录</a>
+                </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_warn" href="javascript:" id="forgetpwd" >忘记密码/用户信息修改</a>
+                </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_plain-default" href="javascript: window.location.href = '/@(string.IsNullOrEmpty(Request["puid"])?"":"?puid="+Request["puid"])';" id="showTooltips"> 首 页 </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+ 

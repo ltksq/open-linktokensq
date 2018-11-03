@@ -1,0 +1,20 @@
+﻿ @model  LinkTokenSQ.Models.VoteIndexModel
+@{
+    Layout = null;
+}
+@foreach (var item in Model.VoteList)
+{
+    <div class="weui-cells">
+        <div class="weui-cell" style="font-size:14px;">
+            <div class="weui-cell__hd">
+                <a href="/vote/@(Model.myvote?"createvote":"viewvote")?vid=@item.voteid" style="color:@(item.votestatus==2 && item.enddate>DateTime.Now.Date?"Blue":"#cccccc");">@item.votetitle</a> 
+                <div style="font-size:12px;color:@(item.votestatus==2 && item.enddate>DateTime.Now.Date?"cornflowerblue":"#cccccc");">参与:@item.joinusercount 票数:@item.ticketnumber 耗费:@Math.Round(item.useamount, 8) <span style="color:@(item.votestatus==2 && item.enddate>DateTime.Now.Date?"hotpink":"#cccccc");"> @item.statusname</span></div>
+            </div>
+            <div class="weui-cell__bd weui-cell_primary">
+
+            </div>
+
+        </div>
+
+    </div>
+}

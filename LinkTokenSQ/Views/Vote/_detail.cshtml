@@ -1,0 +1,15 @@
+﻿@model  LinkTokenSQ.Models.VoteIndexModel
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.VoteJoinUserList)
+{
+    <div class="weui-cells" style="margin-top:5px;">
+        <div class="weui-cell" style="font-size:11px; text-align:left">
+            <span>
+                  @item.wkcaddress<br />
+                <span style="color:goldenrod;">@(Math.Round(item.wkcamount, 10))</span> @item.createtime</span>
+</div>
+    </div>
+}

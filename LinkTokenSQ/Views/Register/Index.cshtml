@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-用户注册";
+}
+@Scripts.Render(Url.Content("~/Scripts/Register/jsx.js"))
+<script>
+    @{
+     string msg = "";
+     if (LinkTokenSQ.MvcApplication.Syspar.ContainsKey("AllowReg"))
+     {
+         if (LinkTokenSQ.MvcApplication.Syspar["AllowReg"].keyvalue == "0")
+         {
+
+             msg = !string.IsNullOrEmpty(LinkTokenSQ.MvcApplication.Syspar["AllowReg"].keydes) ? LinkTokenSQ.MvcApplication.Syspar["AllowReg"].keydes : "暂停注册,请关注官方通知.";
+
+         }
+     }
+
+
+ }
+
+    if ("@msg" != "") {
+        myalert("@msg");
+        window.location.href = "/login"+"@(string.IsNullOrEmpty(Request["puid"])?"":"?puid="+Request["puid"])";
+    }
+</script>
+
+  <div class="page input js_show" style="margin-top:-20px;">
+            <div class="page__hd">
+                <h1 class="page__title" style="font-size: 30px;">注册</h1>
+                <p class="page__desc">已有账号，去<a class="link" href="/login@(string.IsNullOrEmpty(Request["puid"])?"":"?puid="+Request["puid"])">登录</a></p>
+            </div>
+            <div class="page__bd" style="margin-top:-20px;">
+                <div class="weui-cells">
+                    <div class="weui-cell weui-cell_vcode">
+                        <div class="weui-cell weui-cell_select weui-cell_select-before">
+                            <div class="weui-cell__hd">
+                                <select class="weui-select" id="selarea" style="width:80px;">
+                                    <option value="86">+86</option>
+                                    @*<option value="852">+852</option>
+                                        <option value="853">+853</option>
+                                        <option value="886">+886</option>*@
+                                </select>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input id="txttel" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" value="">
+                            </div>
+                        </div>
+
+
+                        <div class="weui-cell__ft">
+                            <button id="btntelcode" class="weui-vcode-btn" style="width:120px;">获取验证码</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell weui-cell_vcode">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">验证码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="txtscode" class="weui-input" type="text" placeholder="请输入验证码">
+                        </div>
+                        <div class="weui-cell__ft">
+                            <img id="scode" src="/Account/SecurityCacheCode" alt="点击重新获取" />
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="txttelcode" class="weui-input" type="text" placeholder="短信验证码">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="txtnikename" class="weui-input" type="text" placeholder="昵称">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="txtlpwd1" class="weui-input" type="password" placeholder="请输入登录密码">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="txtlpwd2" class="weui-input" type="password" placeholder="请确认登录密码">
+
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input id="wkcaddress" class="weui-input" value="" type="text" placeholder="链克钱包地址,注册后验证.">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定注册</a>
+                </div>
+
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_plain-default" href="javascript: window.location.href = '/@(string.IsNullOrEmpty(Request["puid"])?"":"?puid="+Request["puid"])';" id="showTooltips"> 首 页 </a>
+                </div>
+            </div>
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+ 

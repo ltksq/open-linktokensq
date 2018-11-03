@@ -1,0 +1,356 @@
+﻿@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-发起投票";
+}
+<script language="javascript" type="text/javascript" src="/styles/My97DatePicker/WdatePicker.js"></script>
+<div class="container" id="container" style="overflow:auto;">
+    <div class="weui-panel">
+        <div class="page__hd" style="margin-top:-30px;">
+            <h1 class="page__title" style="font-size: 20px;">发起/修改投票 
+            @if (Model.VoteList.Count > 0)
+            {
+                //0暂存,1提交审核,2通过审核,3审核不通过,4关闭,5下线不显示
+                if (Model.VoteList[0].votestatus == 0)
+                {
+                    <span>(待发布)</span>
+                }
+                else if (Model.VoteList[0].votestatus == 1)
+                {
+                    <span>(待审核)</span>
+                }
+                else if (Model.VoteList[0].votestatus == 2)
+                {
+                    <span>(已发布)</span>
+                }
+                else if (Model.VoteList[0].votestatus == 3)
+                {
+                    <span>(拒绝)</span>
+                }
+                else if (Model.VoteList[0].votestatus == 4)
+                {
+                    <span>(投票结束)</span>
+                }
+                else if (Model.VoteList[0].votestatus == 5)
+                {
+                    <span>(下线)</span>
+                }
+            }
+            else
+            {
+                <span>(待保存)</span>
+            }
+            </h1>
+        </div>
+        <div class="page__bd" style="margin-top:-36px;">
+         
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        *主题：
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input id="txttitle" class="weui-input" value="@(Model.VoteList.Count > 0?Model.VoteList[0].votetitle:"")">
+                        <input id="txtvid"  type="hidden" value="@(!string.IsNullOrEmpty(Request["vid"])?Request["vid"]:"0")" />
+                    </div>
+                </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    结束日期：
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="txtenddate"  type="text" class="weui-input"  value="@string.Format("{0:yyyy-MM-dd}", DateTime.Now.Date.AddDays(3))" onclick="WdatePicker({ el: 'txtenddate' });"  />
+                </div>
+            </div>
+           
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" >
+                        描述：
+                    </div>
+                    <div class="weui-cell__bd" >
+                        <textarea id="txtremark" class="weui-textarea" rows="3" >@(Model.VoteList.Count>0?Model.VoteList[0].remark:"")</textarea>
+                    </div>
+                </div>
+@if (Model.VoteList.Count == 0 || (Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 0))
+{
+            <div class="weui-btn-area">
+                @if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 0))
+                {
+                    <a class="weui-btn weui-btn_primary" id="btnsavevote" href="javascript:submitvote();"> 保 存 </a>
+                }
+                else
+                {
+                <a class="weui-btn weui-btn_primary" id="btnsavevote"  href="javascript:submitvote();" > 发起耗费@(Model.addvoteprice)wkc </a>
+                }
+
+            </div>
+}
+        <br/>
+            </div>
+@if ((Model.VoteList.Count > 0))
+{
+        <div class="weui-cell" id="div_voteitem" >
+            <div class="weui-cell__hd">
+                投票项
+            </div>
+            <div class="weui-cell__bd" style="text-align:right;">
+@if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 0))
+{
+                <div class="weui-btn weui-btn_default weui-btn_mini" id="showIOSActionSheet" style="padding-left:6px; padding-right:6px;margin-top:1px;cursor:pointer;"> 添加 </div>
+}
+            </div>
+        </div>
+    foreach (var item in Model.VoteItemList)
+    {
+        <div class="weui-cell" >
+            <div class="weui-cell__hd">
+                <span class="weui-input" style="font-size:13px;color:goldenrod;">@item.title</span>
+            </div>
+            <div class="weui-cell__bd" style="text-align:right;">
+@if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 0))
+{
+                <div class="weui-icon-clear" onclick="delitem(this,@Model.VoteList[0].voteid,@item.svoteid)" ></div>
+}
+            </div>
+         </div>
+    }
+}
+@if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 0) && Model.VoteItemList.Count>0)
+{
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_warn" onclick="pushvote(this,@Model.VoteList[0].voteid);" href="javascript:"> 发布投票 </a>
+    </div>
+}
+@if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 2) && Model.VoteItemList.Count > 0)
+{
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-swiped-btn_default" onclick="endvote(this,@Model.VoteList[0].voteid);" href="javascript:"> 终止投票 </a>
+    </div>
+}
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_plain-default"   href="javascript:;" onclick="window.location.href='/vote/myvote'"> 返回我的投票  </a>
+        </div>
+    </div>
+    <div style="height:70px;"></div>
+</div>
+
+
+<div class="weui-mask" id="iosMask" style="display:none"></div>
+<div class="weui-actionsheet" id="iosActionsheet">
+    <div class="weui-actionsheet__title">
+        <p class="weui-actionsheet__title-text">添加投票项目名</p>
+    </div>
+    <div class="weui-actionsheet__menu">
+        <div class="weui-actionsheet__cell" style="padding-left:10px;">
+            <input id="txtitemtitle" class="weui-input" placeholder="输入投票项目名"  >
+
+        </div>
+        
+    </div>
+    <div class="weui-actionsheet__action" style="text-align: center; margin: 5px 0;">
+        <div class="weui-btn weui-btn_mini weui-btn_primary" style='margin: 2px 20px;' id="btnaddonecloud" onclick="submitvoteitem(this);">添加</div>
+        <div class="weui-btn weui-btn_mini weui-btn_warn" style='margin: 2px 20px;' id="iosActionsheetCancel">取消</div>
+    </div>
+</div>
+
+<script>
+
+    var $iosMask = $('#iosMask');
+    $(function () {
+
+        var $iosActionsheet = $('#iosActionsheet');
+
+        function hideActionSheet() {
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+        }
+
+        $('#iosActionsheetCancel').on('click', hideActionSheet);
+        $("#showIOSActionSheet").on("click", function () {
+            $iosActionsheet.addClass('weui-actionsheet_toggle');
+            $iosMask.fadeIn(200);
+        });
+
+ 
+
+    });
+
+    function submitvote() {
+
+        var txttitle = $("#txttitle").val();
+        var txtenddate = $("#txtenddate").val();
+        if (txttitle == "") {
+            myalert("投票主题未填.");
+            return;
+        }
+        if (txtenddate == "") {
+            myalert("投票结束日期未填.");
+            return;
+        }
+
+        var btn = $('#btnsavevote')
+        var btnname = btn.prop('innerText');
+        var href = btn.attr('href');
+        btn.attr('href', "javascript:;");
+        btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+        $.ajax({
+            type: "post",
+            data: { title: txttitle, remark: $("#txtremark").val(), enddte: txtenddate, vid: $("#txtvid").val() },
+            url: '/vote/submitvote',
+            asyn: false,
+            success: function (data) {
+                btn.prop('innerHTML', btnname);
+                btn.attr('href', href);
+        
+                if (data.RetCode == 0) {
+                    myalert("投票已保存.");
+                    setTimeout(function () {
+                        window.location.href = "/vote/createvote?vid=" + data.ErrorMessage;
+                    }, 1000);
+                   
+                }
+                else
+                    myalert(data.ErrorMessage);
+            }
+        });
+    }
+
+    function submitvoteitem(obj) {
+
+        var txttitle = $("#txtitemtitle").val();
+        
+        if (txttitle == "") {
+            myalert("投票项目名未填.");
+            return;
+        }
+        
+
+        var btn = $(obj)
+        var btnname = btn.prop('innerText');
+        var href = btn.attr('href');
+        btn.attr('href', "javascript:;");
+        btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+        $.ajax({
+            type: "post",
+            data: { title: txttitle, vid: $("#txtvid").val() },
+            url: '/vote/submitvoteitem',
+            asyn: false,
+            success: function (data) {
+                btn.prop('innerHTML', btnname);
+                btn.attr('href', href);
+
+                if (data.RetCode == 0) {
+                    myalert("已保存.");
+                    setTimeout(function () {
+                        window.location.href = "/vote/createvote?vid=" + data.ErrorMessage;
+                    }, 1000);
+
+                }
+                else
+                    myalert(data.ErrorMessage);
+            }
+        });
+    }
+
+    function delitem(obj,vid,ivid){
+        if(!confirm("确定删除吗?")) 
+            return;
+
+
+        var btn = $(obj)
+        var btnname = btn.prop('innerText');
+        var href = btn.attr('href');
+        btn.attr('href', "javascript:;");
+        btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+        $.ajax({
+            type: "post",
+            data: { vid:vid,ivid:ivid },
+            url: '/vote/delvoteitem',
+            asyn: false,
+            success: function (data) {
+                btn.prop('innerHTML', btnname);
+                btn.attr('href', href);
+
+                if (data.RetCode == 0) {
+                    myalert("已删除.");
+                    setTimeout(function () {
+                        window.location.href = "/vote/createvote?vid=" + data.ErrorMessage;
+                    }, 500);
+
+                }
+                else
+                    myalert(data.ErrorMessage);
+            }
+        });
+    }
+
+    function pushvote(obj,vid){
+        if(!confirm("确定发布投票吗?")) 
+            return;
+
+
+        var btn = $(obj)
+        var btnname = btn.prop('innerText');
+        var href = btn.attr('href');
+        btn.attr('href', "javascript:;");
+        btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+        $.ajax({
+            type: "post",
+            data: { vid:vid },
+            url: '/vote/pushvote',
+            asyn: false,
+            success: function (data) {
+                btn.prop('innerHTML', btnname);
+                btn.attr('href', href);
+
+                if (data.RetCode == 0) {
+                    myalert("操作完成.");
+                    setTimeout(function () {
+                        window.location.href = "/vote/createvote?vid=" + data.ErrorMessage;
+                    }, 500);
+
+                }
+                else
+                    myalert(data.ErrorMessage);
+            }
+        });
+    }
+    
+    function endvote(obj,vid){
+        if(!confirm("确定终止投票吗?")) 
+            return;
+
+
+        var btn = $(obj)
+        var btnname = btn.prop('innerText');
+        var href = btn.attr('href');
+        btn.attr('href', "javascript:;");
+        btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+        $.ajax({
+            type: "post",
+            data: { vid:vid },
+            url: '/vote/endvote',
+            asyn: false,
+            success: function (data) {
+                btn.prop('innerHTML', btnname);
+                btn.attr('href', href);
+
+                if (data.RetCode == 0) {
+                    myalert("操作完成.");
+                    setTimeout(function () {
+                        window.location.href = "/vote/createvote?vid=" + data.ErrorMessage;
+                    }, 500);
+
+                }
+                else
+                    myalert(data.ErrorMessage);
+            }
+        });
+    }
+</script>

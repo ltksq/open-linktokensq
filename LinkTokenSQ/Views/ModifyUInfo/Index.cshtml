@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-修改用户信息";
+}
+@Scripts.Render(Url.Content("~/Scripts/modifyuinfo/jsx.js"))
+<script>
+     if("@Model.userid"=="")
+     {
+         myalert("请先注册!");
+         window.location.href = "/login";
+     }
+</script>
+
+    <div class="page input js_show" style="margin-top:-30px;">
+        <div class="page__hd">
+            <h1 class="page__title" style="font-size: 30px;">用户信息修改</h1>
+            <p class="page__desc">没账号，去<a class="link" href="/register">注册</a> ；有账号，去<a class="link" href="/login">登录</a></p>
+        </div>
+        <div class="page__bd" style="margin-top:-30px;">
+            <div class="weui-cells">
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell weui-cell_select weui-cell_select-before">
+                        <div class="weui-cell__hd">
+                            <select class="weui-select" id="selarea" style="width:80px;">
+                                <option value="@Model.countrycode">+@Model.countrycode</option>
+                                <option value="86">+86</option>
+                                @*<option value="852">+852</option>
+                        <option value="853">+853</option>
+                        <option value="886">+886</option>*@
+                            </select>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="txttel" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" value="@Model.userid">
+                        </div>
+                    </div>
+
+
+                    <div class="weui-cell__ft">
+                        <button id="btntelcode" class="weui-vcode-btn" style="width:120px;">获取验证码</button>
+                    </div>
+                </div>
+           
+            </div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">验证码</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input id="txtscode" class="weui-input" type="text" placeholder="请输入验证码">
+                    </div>
+                    <div class="weui-cell__ft">
+                        <img id="scode" src="/Account/SecurityCacheCode" alt="点击重新获取" />
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input id="txttelcode"  class="weui-input" type="text" placeholder="短信验证码">
+                    </div>
+                </div>
+            </div>
+         
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input id="txtnikename" class="weui-input"  value="@Model.nikename" type="text" placeholder="昵称">
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input id="wkcaddress" class="weui-input" value="" type="text" placeholder="链克钱包地址,不填表示不修改.">
+                        <span style="color:gray; font-size:12px;">*更改钱包地址后要重新验证有效性.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input id="txtlpwd1" class="weui-input" type="password" placeholder="请输入登录密码,不填表示不修改.">
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input id="txtlpwd2" class="weui-input" type="password" placeholder="请确认登录密码，不填表示不修改">
+                       
+                    </div>
+                </div>
+            </div>
+         
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定修改</a>
+
+                <a class="weui-btn weui-btn_primary" href="javascript:window.location.href='/userinfo/userinfo';" id="showTooltips">用户信息</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,24 @@
+﻿@using Common.Cache;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "封杀的请求";
+}
+<div style="height:74%;overflow:auto;">
+    @foreach (var item in Model)
+    {
+        <span id="@item">@item <span style="cursor:pointer;color:blue;" onclick="jj('@item');">解禁</span></span><br />
+    }
+</div>
+<script>
+    function jj(key) {
+        var context = { "key": key };
+        $.ajaxPost(AP_ROOT + "firewall/DeleteKill", context, function (response) {
+            if (response.IsSuccess) {
+                document.getElementById(key).innerHTML = "";
+            } 
+        });
+    }
+</script>
+ 

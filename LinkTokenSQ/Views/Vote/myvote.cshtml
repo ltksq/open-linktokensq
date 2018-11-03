@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-我发起的投票";
+}
+<script type="text/javascript" src="~/Scripts/zepto.min.js"></script>
+<script type="text/javascript" src="~/Scripts/comMerges.js"></script>
+<script type="text/javascript" src="~/Scripts/OneCloud/common.js?ver=1.1"></script>
+<div class="page__bd" style="overflow:auto;height:90%">
+    <div class="weui-panel">
+        <div class="weui-panel__hd">
+            <table cellspacing="0" border="0" style="width:100%;">
+                <tr>
+                    <td style="width:70%;font-size:13px;">我发起的投票 </td>
+                    <td style="text-align:right; padding-right:10px;">
+                        <div class="weui-btn weui-btn_primary weui-btn_mini" onclick="window.location.href = '/vote/createvote';" style="padding-left:6px; padding-right:6px;margin-top:1px;cursor:pointer;">发起投票</div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="weui-panel__bd">
+            <input type="hidden" id="txtKeyords" value="my" />
+            <input type="hidden" id="dlstatus" />
+            <div class="weui-media-box weui-media-box_small-appmsg" id="ajaxData">
+
+            </div>
+            <p class="loading pt5 pb5" id="loading" style="margin-top:10px;text-align:center;">
+                <span style="text-align:center;">数据加载中</span>
+            </p>
+        </div>
+    </div>
+    @if (Model.votecount > 10)
+    {
+        <div style="height:120px; text-align:center;">
+            <br />
+            <a class='weui-btn weui-btn_primary' style='margin: 0px 5px;' href='javascript:pageNum++;loadSodList();'>下一页</a>
+            <br />
+        </div>
+    }
+    <div style="height:70px;"></div>
+</div>
+<script>
+    var pagedata_reurl = '/vote/ajaxgetvotelist';
+
+
+    loadSodList();
+
+</script>

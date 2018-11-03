@@ -1,0 +1,73 @@
+﻿@using Entity;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-钱包验证";
+}
+@Scripts.Render(Url.Content("~/Scripts/Verify/jsx.js"))
+
+ <div class="container" id="container">
+    <div class="page js_show">
+        
+        <div class="page__bd">
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>帐号</p>
+                    </div>
+                    <div class="weui-cell__ft">@(Model.userid)</div>
+                </div>
+            </div>
+ 
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">用户钱包</label>
+                    </div>
+                   
+                    <div class="weui-cell__ft" style="word-wrap: break-word;word-break: normal;width: 200px;">@(Model.wkcaddress)</div>
+                        
+                     
+ 
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>验证状态</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    @if (Model.wkccheckpass)
+                    {
+                        <span>通过验证</span>
+                    }
+                    else
+                    {
+                        <span style="color:red;">未验证(有些功能无法使用)</span>
+                    }
+                    </div>
+                </div>
+            </div>
+ 
+            <article class="weui-article">
+                <section>
+                    <h2 class="title" style="margin-bottom: 20px;">为了对您的链克钱包进行验证，请使用您注册的钱包地址对以下钱包地址进行转账验证！</h2>
+                    <h2 class="title">验证地址：</h2>
+                    <h2 class="title link2"><span id="copytxt">@(System.Configuration.ConfigurationSettings.AppSettings["VerityWKCAddress"])</span></h2>
+                    <h2 class="title">验证金额：</h2>
+                    <h2 class="title"><span class="link2">@(Model.wkccheckmoney)</span></h2>
+                    <h2 class="title" style="margin-top: 10px;">转账后请耐心等待片刻，审核完成后会自动进入首页。</h2>
+                    <h2 class="title" style="margin-top: 10px; font-size:12px;color:sandybrown;">注：验证金额必需与@(Model.wkccheckmoney)一致，如果不一致验证成功后会充值到用户账号内；如用户转到非指定的验证钱包中我们也无法为你找回。请操作前细心核对。</h2>
+                </section>
+            </article>
+        </div>
+        
+        <div class="page__ft">
+             
+        </div>
+    </div>
+</div>
+ 
+ 
+ 

@@ -1,0 +1,37 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; } @{ ViewBag.Title = "链克文化社区-账户明细"; }
+<div class="page input js_show">
+	<div class="page__hd" style="margin-top:-30px;">
+		<h1 class="page__title">账户明细</h1><br />
+ 
+	</div>
+	<div class="page__bd" style="margin-top:-30px;">
+		<div class="weui-panel">
+			<div class="weui-panel__bd">
+				<div class="weui-media-box weui-media-box_small-appmsg">
+					<div class="weui-cells">
+						@if (Model.Items != null && Model.Items.Count > 0)
+						{
+							foreach (var item in Model.Items)
+							{
+								<div class="weui-cell">
+									<div>@item.ftypename @Html.Raw(item.remark)</div>
+									<div style="color: #E64340;">(@item.fmoney)</div>
+									<div style="font-size: 10px; color: #999; margin-left: 10px;">@item.datachange_lasttime</div>
+								</div>
+							}
+						}
+						else
+						{
+							<div class="weui-cell">暂无记录</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="weui-btn-area" style="padding:40px 0 80px; text-align: center; margin: 0;">
+			<a class="weui-btn weui-btn_mini weui-btn_primary" href="javascript:window.location.href='/userinfo/accdetail?currpage=1@(string.IsNullOrEmpty(Request["ftype"])?"":"&ftype="+Request["ftype"])'" id="nextpage">第一页</a>
+			<a class="weui-btn weui-btn_mini weui-btn_primary" style="margin:0;" href="javascript:window.location.href='/userinfo/accdetail?currpage=@(Model.CurrPage+1)@(string.IsNullOrEmpty(Request["ftype"])?"":"&ftype="+Request["ftype"])'" id="nextpage">下一页</a>
+		</div>
+	</div>
+</div>
+ 

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-社区说明";
+}
+<div class="page__hd" style="padding:0;">
+    <div class="weui-tab">
+        <div class="weui-navbar" style="position: relative">
+            <div class="weui-navbar__item weui-bar__item_on" onclick="javascript: window.location.href = '/userinfo/userhelp';">
+                社区说明
+            </div>
+            <div class="weui-navbar__item" onclick="javascript: window.location.href = '/luckydraw/jzdetail';">
+                社区捐赠
+            </div>
+        </div>
+    </div>
+
+    <p class="page__desc" style="height:100%;overflow:auto; padding-top:10px; padding-left:10px; padding-right:10px;padding-bottom:10px;">@Html.Raw(Model.keydes.Replace("\r", "<br/>"))</p>
+</div>

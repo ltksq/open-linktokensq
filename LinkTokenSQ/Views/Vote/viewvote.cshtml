@@ -1,0 +1,206 @@
+﻿@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+@{
+    ViewBag.Title = "链克文化社区-参与投票";
+}
+<script language="javascript" type="text/javascript" src="/styles/highchart/highcharts.js"></script>
+<div class="container" id="container" style="overflow:auto;">
+    <div class="weui-panel">
+        <div class="page__hd" style="margin-top:-30px; margin-left:-20px;">
+            <h1 class="page__title" style="font-size: 18px;">
+                参与投票
+                @if (Model.VoteList.Count > 0)
+                {
+                    <span>
+                        @Model.VoteList[0].statusname
+
+                    </span>
+
+                }
+            </h1>
+        </div>
+        <div class="page__bd" style="margin-top:-36px;">
+            <div class="weui-cell" style="font-size:14px;">
+                <div class="weui-cell__bd">
+                    @(Model.VoteList.Count > 0 ? Model.VoteList[0].votetitle : "")
+                </div>
+            </div>
+            <div class="weui-cell" style="font-size:12px;">
+                <div class="weui-cell__hd">
+                    结束日期：
+                </div>
+                <div class="weui-cell__bd">
+                    @(Model.VoteList.Count > 0 ? Model.VoteList[0].enddate.ToString("yyyy-MM-dd") : "")
+                </div>
+            </div>
+
+            <div class="weui-cell" style="font-size:12px;">
+
+                <div class="weui-cell__bd">
+                    描述：@(Model.VoteList.Count > 0 ? Model.VoteList[0].remark : "")
+                </div>
+            </div>
+
+        </div>
+        @if ((Model.VoteList.Count > 0))
+        {
+            foreach (var item in Model.VoteItemList)
+            {
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="width:250px;">
+                        <span class="weui-input" style="font-size:12px;color:goldenrod;" onclick="detail(@Model.VoteList[0].voteid, @item.svoteid);">
+                            @item.title<br />
+                            <span style="padding-left:5px;color:blueviolet;">人数:@(Model.GetJoinUserCount(item.svoteid)) 票数:@((long)Math.Round(Model.GetJoinUserTicket(item.svoteid), 0))</span>
+                        </span>
+                    </div>
+                    <div class="weui-cell__bd" style="text-align:right;">
+                        @if ((Model.VoteList.Count > 0 && Model.VoteList[0].votestatus == 2))
+                        {
+                            <div class="weui-btn weui-btn_default weui-btn_mini" onclick="join(this, @Model.VoteList[0].voteid, @item.svoteid)" style="padding-left:6px; padding-right:6px;margin-top:1px;cursor:pointer;">投它</div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        <div class="weui-cell">
+            <div class="weui-cell__hd" style="font-size:12px;">
+
+                总人数:@(Model.VoteList.Count > 0 ? Model.VoteList[0].joinusercount : "0") 总票数:@(Model.VoteList.Count > 0 ? Model.VoteList[0].ticketnumber : "0")
+                <br /> 涉及余额:@(Math.Round(Model.VoteList.Count > 0 ? Model.VoteList[0].ticketcount : "0", 10))
+
+            </div>
+            <div class="weui-cell__bd" style="text-align:right;">
+                @if (Model.VoteList.Count > 0)
+                {
+                    <div class="weui-btn weui-btn_default weui-btn_mini" onclick="detail(@Model.VoteList[0].voteid, 0);" style="padding-left:6px; padding-right:6px;margin-top:1px;cursor:pointer;color:blue;">投票明细</div>
+                }
+            </div>
+
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd" style="font-size:12px;">
+
+
+                <div id="reportdiv" style="height:200px; width:300px; padding-top:5px; padding-bottom:5px;"></div>
+                <script>
+                    var chart = Highcharts.chart('reportdiv', {
+        chart: {
+            type: 'bar',
+            spacingBottom: 5, //设置底部间距
+            spacingLeft: 5, //设置左侧间距
+            spacingRight: 10, //设置右侧间距
+            spacingTop: 5//设置顶部间距
+        },
+        title: {
+            text: ''
+        },
+        legend: {
+            enabled: false
+            
+        },
+        xAxis: {
+            categories: [@(Html.Raw(Model.GetX()))],
+            labels: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    // 开启数据标签
+                    enabled: false
+                },
+                // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                enableMouseTracking: true
+            }
+        },
+
+        series: [{
+            name: '票数',
+            data: [@(Model.GetY())]
+        }
+
+        ]
+    });
+                </script>
+                </div>
+            </div>
+               
+            </div>
+            <div style="height:70px;"></div>
+        </div>
+        <div class="weui-mask" id="iosMask" style="display: none"></div>
+        <div class="weui-actionsheet" id="iosActionsheet_detail">
+
+            <div class="weui-actionsheet__menu">
+                <div class="weui-actionsheet__cell" style="overflow:auto;height:400px;">
+                    <iframe id="onecloudurl" frameborder="0" style="width:100%;height:400px;"></iframe>
+                </div>
+            </div>
+            <div class="weui-actionsheet__action" style="text-align: center; margin: 0px 0;">
+                <div class="weui-btn weui-btn_mini weui-btn_primary" style='margin: 0px 20px;' id="isoclose">隐藏明细</div>
+            </div>
+        </div>
+        <script>
+            var $iosMask = $('#iosMask');
+
+            var $iosActionsheet_detail = $('#iosActionsheet_detail');
+            function hideActionSheet_detail() {
+                $iosActionsheet_detail.removeClass('weui-actionsheet_toggle');
+                $iosMask.fadeOut(200);
+            }
+
+            $('#isoclose').on('click', hideActionSheet_detail);
+
+            function detail(vid, svid) {
+
+                if('@Model.uid'=='0')
+                {
+                    myalert('请登录并验证钱包有效性.');
+                    return;
+                }
+                document.getElementById('onecloudurl').src = "/vote/votedetail?vid=" + vid + "&svid=" + svid;
+
+                $iosActionsheet_detail.addClass('weui-actionsheet_toggle');
+                $iosMask.fadeIn(200);
+            }
+
+            function join(obj, vid, svid) {
+                if (!confirm("确定投它吗?")) return;
+
+                var btn = $(obj)
+                var btnname = btn.prop('innerText');
+                var href = btn.attr('href');
+                btn.attr('href', "javascript:;");
+                btn.prop('innerHTML', "<i class='weui-loading'></i>");
+
+                $.ajax({
+                    type: "post",
+                    data: { vid: vid, ivid: svid },
+                    url: '/vote/joinvoteitem',
+                    asyn: false,
+                    success: function (data) {
+                        btn.prop('innerHTML', btnname);
+                        btn.attr('href', href);
+
+                        if (data.RetCode == 0) {
+                            myalert("已投票.");
+                            setTimeout(function () {
+                                window.location.href = "/vote/viewvote?vid=" + data.ErrorMessage;
+                            }, 500);
+
+                        }
+                        else
+                            myalert(data.ErrorMessage);
+                    }
+                });
+            }
+
+        </script>

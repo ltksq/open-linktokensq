@@ -1,0 +1,87 @@
+﻿@using Entity; @{ Layout = "~/Views/Shared/_Layout.cshtml"; } @{ ViewBag.Title = "链克文化社区-捐赠"; }
+
+<div class="page__hd" style="padding:0; text-align:center;">
+    <div class="weui-tab">
+        <div class="weui-navbar" style="position: relative">
+            <div class="weui-navbar__item" onclick="javascript: window.location.href = '/userinfo/userhelp';">
+                社区说明
+            </div>
+            <div class="weui-navbar__item  weui-bar__item_on" onclick="javascript: window.location.href = '/Luckydraw/jzdetail';">
+                社区捐赠
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div style="position:absolute; left: 0; top: 6%; bottom:0; right: 0; overflow: auto;">
+ 
+    <div style="width:90%;margin: 20px auto 20px; border: solid 1px #ccc; padding: 10px 10px 5px;text-align: left; background:#fff; font-size: 14px;">
+        由于目前社区资源有限，为让社区更好走下去，希望大家共同参与贡献一份力量。<br /><br />
+        <div class="weui-cell">
+            <div class="weui-cell__hd">捐赠的wkc：</div>
+            <div class="weui-cell__bd weui-cell_primary">
+                <input id="txtnum" class="weui-input" style="width:80px; background-color:#eeeeee;" /> 
+                
+            </div>
+            </div>
+        <a class="weui-btn weui-btn_primary weui-btn_mini" style="margin-left:90px;" id="sjdj" href="javascript:Startjz();">@LinkTokenSQ.MvcApplication.Syspar["OpeanLuckdraw"].keydes</a>
+        </div>
+    <div style="width:90%;margin: 20px auto 20px; border: solid 1px #ccc; padding: 10px 10px 5px;text-align: left; background:#fff; font-size: 14px;">
+        捐赠总额：@Model.jzze ,  明细：<br/>
+        <table cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+             <th style='border: solid 1px #eeeeee;padding: 5px 0;'>用户</th>
+             <th style='border: solid 1px #eeeeee;padding: 5px 0;'>捐赠总额</th>
+             <th style='border: solid 1px #eeeeee;padding: 5px 0;'>最近捐赠时间</th>
+         </tr>
+            @if (Model.jzdetails != null)
+            {
+                foreach (var item in Model.jzdetails)
+                {
+            <tr>
+                <td style='border: solid 1px #eeeeee;padding: 5px 0;width:100px;'>@item.nikename</td>
+                <td style='border: solid 1px #eeeeee;padding: 5px 0;'>@Math.Round(item.fmoney, 6)</td>
+                <td style='border: solid 1px #eeeeee;padding: 5px 0;'>@item.createtime</td>
+            </tr>
+                }
+            }
+        </table>
+        </div>
+    </div>
+ <br /><br />
+<script>
+ 
+	function Startjz() {
+	    if($("#txtnum").val()=="")
+	    {
+	        myalert("请输入要捐赠的积分数额.");
+	        return;
+	    }
+	    if(!confirm("确定捐赠:"+$("#txtnum").val()+" 吗?"))
+	        return;
+
+	    var btn = $('#sjdj')
+	    var btnname = btn.prop('innerText');
+	    var href = btn.attr('href');
+	    btn.attr('href', "javascript:;");
+	    btn.prop('innerHTML', "<i class='weui-loading'></i>");
+	    
+	    var context = {uid:@Model.uinfo.uid,fmoney:$("#txtnum").val()};
+
+	    $.ajaxPost(AP_ROOT + "Luckydraw/Startuserjz", context, function (response) {
+
+	        btn.prop('innerHTML', btnname);
+	        btn.attr('href', href);
+
+	        if (response.IsSuccess) {
+	            myalert("感谢念的支持，相信社区会发展更好。");
+	            document.location.href = "/Luckydraw/jzdetail";
+	        }
+	        else
+	            myalert(response.Message);
+
+	    });
+	}
+</script>
