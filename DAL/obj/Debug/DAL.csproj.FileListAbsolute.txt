@@ -1,0 +1,10 @@
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\DAL.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\DAL.pdb
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\Entity.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\Miou.Common.DB.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\Miou.Common.Utility.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\MySql.Data.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\bin\Debug\Entity.pdb
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\obj\Debug\DAL.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\DAL\obj\Debug\DAL.pdb
