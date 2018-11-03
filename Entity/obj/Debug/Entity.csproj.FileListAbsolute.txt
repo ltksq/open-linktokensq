@@ -1,0 +1,5 @@
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\Entity\bin\Debug\Entity.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\Entity\bin\Debug\Entity.pdb
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\Entity\obj\Debug\Entity.csprojResolveAssemblyReference.cache
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\Entity\obj\Debug\Entity.dll
+D:\work\WkcWaterMargin\open-linktokensq\open-linktokensq\Entity\obj\Debug\Entity.pdb
